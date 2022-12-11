@@ -4,10 +4,10 @@ export const api = {
   async fetchDoc() {
     let resDoc1: any, resDoc2: any;
     try {
-      const doc1 = async () => await instance.get(
+      const doc1 =  () =>  instance.get(
         `/documents1 `,
       )
-      const doc2 = async () => await instance.get(
+      const doc2 =  () =>  instance.get(
         `/documents2`,
       )
       await Promise.all([doc1(), doc2()]).then((res) => {
