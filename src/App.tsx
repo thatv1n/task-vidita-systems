@@ -1,13 +1,13 @@
-import React from 'react';
-import './App.css';
-import DataTable from "./components/table/DataTable";
+import React from 'react'
+import './App.css'
+import DataTable from './components/table/DataTable'
 
-function App() {
-    return (
-        <div className="App">
-            <DataTable/>
-        </div>
-    );
+const App: React.FC = () => {
+  return (
+    <div className="App">
+      <DataTable/>
+    </div>
+  )
 }
 
-export default App;
+export default App
