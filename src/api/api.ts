@@ -16,11 +16,11 @@ export const api = {
       })
       return [...resDoc1.data, ...resDoc2.data]
     } catch (e: any) {
-      reportError(e.message);
+      console.log(e.message);
     }
   },
 
-  async sendDoc(obj: string[] | null) {
+  async sendDoc(obj: string[] ) {
     try {
       const {data} = await instance.post(
         `/cancel`, obj
@@ -28,7 +28,7 @@ export const api = {
 
       return data;
     } catch (e: any) {
-      reportError(e.message);
+      console.log(e.message);
     }
   },
 };

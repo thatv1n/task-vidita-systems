@@ -76,8 +76,8 @@ const columns: GridColDef[] = [
 
 const DataTable = () => {
   const dispatch = useAppDispatch()
-  const [finalClickInfo, setFinalClickInfo] = React.useState<DocType[] | null>(null);
-  const [idDocs, setIdDocs] = React.useState<string[] | null>(null);
+  const [finalClickInfo, setFinalClickInfo] = React.useState<DocType[] >([]);
+  const [idDocs, setIdDocs] = React.useState<string[]>([]);
   const [docs, setDocs] = React.useState<DocType[]>([])
   const dataTable = useAppSelector<any>(state => state.store.docs.items)
 
