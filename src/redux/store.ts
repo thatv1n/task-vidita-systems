@@ -1,4 +1,4 @@
-import {configureStore, combineReducers} from '@reduxjs/toolkit'
+import { configureStore, combineReducers } from '@reduxjs/toolkit'
 import DataSlice from './silce'
 
 const store = combineReducers({
@@ -6,7 +6,7 @@ const store = combineReducers({
 })
 
 const data = configureStore({
-  reducer: {store},
+  reducer: { store },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: false

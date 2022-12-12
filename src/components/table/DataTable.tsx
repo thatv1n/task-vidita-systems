@@ -1,12 +1,12 @@
-import React from 'react';
+import React from 'react'
 
-import {useAppDispatch, useAppSelector} from "../../redux/hooks";
-import {fetchDocs} from "../../redux/thunks";
+import { useAppDispatch, useAppSelector } from '../../redux/hooks'
+import { fetchDocs } from '../../redux/thunks'
 
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import Modal from '@mui/material/Modal';
+import Box from '@mui/material/Box'
+import Button from '@mui/material/Button'
+import Typography from '@mui/material/Typography'
+import Modal from '@mui/material/Modal'
 import {
   DataGrid, GridColDef, GridToolbarQuickFilter,
   GridToolbarContainer,
@@ -14,12 +14,12 @@ import {
   useGridSelector,
   gridPageSelector,
   gridPageCountSelector,
-  ruRU,
-} from '@mui/x-data-grid';
-import Pagination from '@mui/material/Pagination';
+  ruRU
+} from '@mui/x-data-grid'
+import Pagination from '@mui/material/Pagination'
 
-import {DocType} from "../../types";
-import {api} from "../../api/api";
+import { DocType } from '../../types'
+import { api } from '../../api/api'
 
 const style = {
   position: 'absolute' as const,
@@ -30,22 +30,22 @@ const style = {
   bgcolor: 'background.paper',
   border: '2px solid #000',
   boxShadow: 24,
-  p: 4,
-};
+  p: 4
+}
 
 const columns: GridColDef[] = [
   {
     field: 'id',
     headerName: 'id',
-    hide: true,
+    hide: true
   },
   {
     field: 'status',
-    headerName: 'Статус',
+    headerName: 'Статус'
   },
   {
     field: 'sum',
-    headerName: 'Сумма',
+    headerName: 'Сумма'
   },
   {
     field: 'qty',
@@ -54,7 +54,7 @@ const columns: GridColDef[] = [
   },
   {
     field: 'volume',
-    headerName: 'Объем',
+    headerName: 'Объем'
   },
   {
     field: 'name',
@@ -69,29 +69,28 @@ const columns: GridColDef[] = [
   },
   {
     field: 'total',
-    headerName: 'Всего',
-  },
-];
-
+    headerName: 'Всего'
+  }
+]
 
 const DataTable = () => {
   const dispatch = useAppDispatch()
-  const [finalClickInfo, setFinalClickInfo] = React.useState<DocType[] >([]);
-  const [idDocs, setIdDocs] = React.useState<string[]>([]);
+  const [finalClickInfo, setFinalClickInfo] = React.useState<DocType[]>([])
+  const [idDocs, setIdDocs] = React.useState<string[]>([])
   const [docs, setDocs] = React.useState<DocType[]>([])
-  const dataTable = useAppSelector<any>(state => state.store.docs.items)
+  const dataTable = useAppSelector(state => state.store.docs.items)
 
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const [open, setOpen] = React.useState(false)
+  const handleOpen = () => setOpen(true)
+  const handleClose = () => setOpen(false)
 
   React.useEffect(() => {
-    dispatch(fetchDocs())
+    void dispatch(fetchDocs())
   }, [dispatch])
 
   React.useEffect(() => {
-    if (dataTable) {
-      const data = JSON.parse(JSON.stringify(dataTable))?.sort((a: DocType, b: DocType) => a.delivery_date > b.delivery_date ? 1 : -1)
+    if (dataTable != null) {
+      const data: DocType[] = JSON.parse(JSON.stringify(dataTable))?.sort((a: DocType, b: DocType) => a.delivery_date > b.delivery_date ? 1 : -1)
       for (let i = 0; i < data?.length; i++) {
         data[i].total = `${data[i].qty + data[i].sum} ${data[i].currency}`
       }
@@ -107,10 +106,9 @@ const DataTable = () => {
     })
     setFinalClickInfo(obj)
     setIdDocs(params)
-  };
+  }
 
   const CustomToolbar = () => {
-
     return (
       <GridToolbarContainer>
         <Box
@@ -118,7 +116,7 @@ const DataTable = () => {
             p: 0.5,
             pb: 0,
             mb: '10px',
-            ml: '10px',
+            ml: '10px'
           }}
         >
           <GridToolbarQuickFilter
@@ -130,15 +128,15 @@ const DataTable = () => {
             }
           />
         </Box>
-        <div style={{marginLeft: '25%', marginTop: '50px'}}></div>
+        <div style={{ marginLeft: '25%', marginTop: '50px' }}></div>
       </GridToolbarContainer>
-    );
-  };
+    )
+  }
 
   const CustomFooter = () => {
-    const apiRef = useGridApiContext();
-    const page = useGridSelector(apiRef, gridPageSelector);
-    const pageCount = useGridSelector(apiRef, gridPageCountSelector);
+    const apiRef = useGridApiContext()
+    const page = useGridSelector(apiRef, gridPageSelector)
+    const pageCount = useGridSelector(apiRef, gridPageCountSelector)
     const sumVolume = docs?.reduce((a, b) => a + b.volume, 0)
     const sumQty = docs?.reduce((a, b) => a + b.qty, 0)
     return (
@@ -148,13 +146,13 @@ const DataTable = () => {
             p: 0.5,
             pb: 0,
             mb: '10px',
-            ml: '10px',
+            ml: '10px'
           }}
         >
 
         </Box>
-        <div style={{marginRight: '20px'}}>Общий обьем: {sumVolume}</div>
-        <div style={{marginRight: '20px'}}>Общий количество: {sumQty}</div>
+        <div style={{ marginRight: '20px' }}>Общий обьем: {sumVolume}</div>
+        <div style={{ marginRight: '20px' }}>Общий количество: {sumQty}</div>
         <Button onClick={handleOpen}>Анулировать</Button>
         <Modal
           open={open}
@@ -166,13 +164,14 @@ const DataTable = () => {
             <Typography id="modal-modal-title" variant="h6" component="h2">
               Вы уверены что хотите аннулировать товар(ы):
             </Typography>
-            <Typography id="modal-modal-description" sx={{mt: 2}}>
+            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
               <div className="modal_items_name">
-                {finalClickInfo?.map((item, key) => <div>
-                  <div>{item.name}</div>
-                  <span
-                    style={finalClickInfo?.length - 1 === key ? {display: 'none'} : {display: 'block'}}>,</span>
-                </div>)}
+                {finalClickInfo?.map((item, key) =>
+                  <div key={key}>
+                    <div>{item.name}</div>
+                    <span
+                      style={finalClickInfo?.length - 1 === key ? { display: 'none' } : { display: 'block' }}>,</span>
+                  </div>)}
               </div>
             </Typography>
             <div className="modal_group_buttons">
@@ -188,8 +187,8 @@ const DataTable = () => {
           onChange={(event, value) => apiRef.current.setPage(value - 1)}
         />
       </GridToolbarContainer>
-    );
-  };
+    )
+  }
 
   const send = async () => {
     const res = await api.sendDoc(idDocs)
@@ -201,7 +200,7 @@ const DataTable = () => {
 
   return (
     <div>
-      <div style={{height: 400, width: '100%'}}>
+      <div style={{ height: 400, width: '100%' }}>
         <DataGrid
           localeText={ruRU.components.MuiDataGrid.defaultProps.localeText}
           rows={docs}
@@ -218,7 +217,7 @@ const DataTable = () => {
         />
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default DataTable;
+export default DataTable

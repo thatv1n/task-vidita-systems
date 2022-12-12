@@ -1,9 +1,9 @@
-import {createSlice} from '@reduxjs/toolkit'
-import {DocType} from '../types'
-import {fetchDocs} from './thunks'
+import { createSlice } from '@reduxjs/toolkit'
+import { DocType } from '../types'
+import { fetchDocs } from './thunks'
 
 interface fetchDataState {
-  items: DocType[] | void
+  items: DocType[] | undefined
   isLoading: boolean
   error: any | null
 }
@@ -23,7 +23,7 @@ const fetchDataSlice = createSlice({
       state.isLoading = true
       state.items = []
     })
-    builder.addCase(fetchDocs.fulfilled, (state, {payload}) => {
+    builder.addCase(fetchDocs.fulfilled, (state, { payload }) => {
       state.isLoading = false
       state.items = payload
     })
