@@ -2,33 +2,35 @@ import instance from './instance';
 
 export const api = {
   async fetchDoc() {
-    let resDoc1: any, resDoc2: any;
     try {
-      const doc1 =  () =>  instance.get(
+      const doc1 = async () => await instance.get(
         `/documents1 `,
       )
-      const doc2 =  () =>  instance.get(
+      const doc2 = async () => await instance.get(
         `/documents2`,
       )
-      await Promise.all([doc1(), doc2()]).then((res) => {
-        [resDoc1, resDoc2] = res;
-
+      const [resDoc1,resDoc2] = await Promise.all([doc1(), doc2()]).then((res) => {
+        return res
       })
-      return [...resDoc1.data, ...resDoc2.data]
-    } catch (e: any) {
-      console.log(e.message);
+      return [...resDoc1.data,...resDoc2.data]
+    } catch (err) {
+      if (err instanceof Error) {
+        console.log(err.message);
+      }
     }
   },
 
-  async sendDoc(obj: string[] ) {
+  async sendDoc(obj: string[]) {
     try {
       const {data} = await instance.post(
         `/cancel`, obj
       );
 
       return data;
-    } catch (e: any) {
-      console.log(e.message);
+    } catch (err) {
+      if (err instanceof Error) {
+        console.log(err.message);
+      }
     }
   },
 };
