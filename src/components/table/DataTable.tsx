@@ -86,7 +86,7 @@ const DataTable = () => {
 
   React.useEffect(() => {
     void dispatch(fetchDocs())
-  }, [dispatch])
+  }, [])
 
   React.useEffect(() => {
     if (dataTable != null) {
@@ -97,7 +97,7 @@ const DataTable = () => {
       Object.preventExtensions(data)
       setDocs(data)
     }
-  }, [dataTable, open])
+  }, [dataTable])
 
   const handleOnCellClick = (params: any[]) => {
     const obj: any = []
@@ -164,7 +164,7 @@ const DataTable = () => {
             <Typography id="modal-modal-title" variant="h6" component="h2">
               Вы уверены что хотите аннулировать товар(ы):
             </Typography>
-            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+            <Typography id="modal-modal-description" sx={{ mt: 2 }} component={'span'} >
               <div className="modal_items_name">
                 {finalClickInfo?.map((item, key) =>
                   <div key={key}>
