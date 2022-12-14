@@ -3,6 +3,12 @@ import { GridToolbarContainer, GridToolbarQuickFilter } from '@mui/x-data-grid'
 import Box from '@mui/material/Box'
 
 const TableToolbar = () => {
+  const search = (searchInput: string) =>
+    searchInput
+      .split(',')
+      .map((value) => value.trim())
+      .filter((value) => value !== '')
+
   return (
     <GridToolbarContainer>
       <Box
@@ -14,15 +20,9 @@ const TableToolbar = () => {
         }}
       >
         <GridToolbarQuickFilter
-          quickFilterParser={(searchInput) =>
-            searchInput
-              .split(',')
-              .map((value) => value.trim())
-              .filter((value) => value !== '')
-          }
+          quickFilterParser={(searchInput) => search(searchInput)}
         />
       </Box>
-      <div style={{ marginLeft: '25%', marginTop: '50px' }}></div>
     </GridToolbarContainer>
   )
 }

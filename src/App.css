@@ -1,6 +1,7 @@
 .App {
     position: relative;
-    width: 70%;
+    max-width: 861px;
+    width: 100%;
     margin: 200px auto 0;
 }
 
@@ -31,6 +32,16 @@
     width: 100%;
 }
 
-footer_table_item {
+.footer_table_item {
     margin-right: 20px;
+}
+
+.wrapper_footer {
+    display: flex;
+    justify-content: space-between;
+}
+
+.footer_left_item {
+    display: flex;
+    align-items: center;
 }

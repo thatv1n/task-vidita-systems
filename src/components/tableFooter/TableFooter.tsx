@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ChangeEvent } from 'react'
 
 import {
   gridPageCountSelector,
@@ -68,20 +68,22 @@ const TableFooter: React.FC<TProps> = ({ checkedItem }) => {
         style={checkedItem.checkedDocs?.length - 1 === key ? { display: 'none' } : { display: 'block' }}>,</span>
     </div>)
 
+  const pagination = (event: ChangeEvent<any>, value: number) => apiRef.current.setPage(value - 1)
+
   return (
-    <GridToolbarContainer>
-      <Box
-        sx={{
-          p: 0.5,
-          pb: 0,
-          mb: '10px',
-          ml: '10px'
-        }}
-      >
-      </Box>
-      <div className='footer_table_item'>Общий обьем: {sumVolume}</div>
-      <div className='footer_table_item'>Общий количество: {sumQty}</div>
-      <Button onClick={handleOpen}>Анулировать</Button>
+    <GridToolbarContainer className="wrapper_footer">
+      <div className="footer_left_item">
+        <div className='footer_table_item'>Общий обьем: {sumVolume}</div>
+        <div className='footer_table_item'>Общий количество: {sumQty}</div>
+        <Button onClick={handleOpen}>Анулировать</Button>
+      </div>
+      <Pagination
+        color='primary'
+        count={pageCount}
+        page={page + 1}
+        onChange={(event, page) => pagination(event, page)}
+      />
+
       <Modal
         open={open}
         onClose={handleClose}
@@ -103,12 +105,7 @@ const TableFooter: React.FC<TProps> = ({ checkedItem }) => {
           </div>
         </Box>
       </Modal>
-      <Pagination
-        color='primary'
-        count={pageCount}
-        page={page + 1}
-        onChange={(event, value) => apiRef.current.setPage(value - 1)}
-      />
+
     </GridToolbarContainer>
   )
 }

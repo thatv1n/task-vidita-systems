@@ -5,7 +5,7 @@ import { fetchDocs } from './thunks'
 interface fetchDataState {
   items: DocType[] | undefined
   isLoading: boolean
-  error: any | null
+  error: any
 }
 
 const initialState: fetchDataState = {
@@ -26,6 +26,11 @@ const fetchDataSlice = createSlice({
     builder.addCase(fetchDocs.fulfilled, (state, { payload }) => {
       state.isLoading = false
       state.items = payload
+    })
+    builder.addCase(fetchDocs.rejected, (state, { payload }) => {
+      state.isLoading = false
+      state.error = payload
+      state.items = []
     })
   }
 })

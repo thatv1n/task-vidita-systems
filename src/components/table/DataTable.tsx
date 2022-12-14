@@ -3,52 +3,15 @@ import React from 'react'
 import { useAppDispatch, useAppSelector } from '../../redux/hooks'
 import { fetchDocs } from '../../redux/thunks'
 
-import { DataGrid, GridColDef, ruRU } from '@mui/x-data-grid'
+import { DataGrid, ruRU } from '@mui/x-data-grid'
 
 import { DocType, TypeActiveItem } from '../../types'
 import TableToolbar from '../tableToolbar/TableToolbar'
 import TableFooter from '../tableFooter/TableFooter'
 
-const columns: GridColDef[] = [
-  {
-    field: 'id',
-    headerName: 'id',
-    hide: true
-  },
-  {
-    field: 'status',
-    headerName: 'Статус'
-  },
-  {
-    field: 'sum',
-    headerName: 'Сумма'
-  },
-  {
-    field: 'qty',
-    headerName: 'Колличество',
-    width: 150
-  },
-  {
-    field: 'volume',
-    headerName: 'Объем'
-  },
-  {
-    field: 'name',
-    headerName: 'Название',
-    width: 130
-  },
-  {
-    field: 'delivery_date',
-    headerName: 'Дата доставки',
-    width: 150
-  },
-  {
-    field: 'total',
-    headerName: 'Всего'
-  }
-]
+import { columns } from './ColumnsTable'
 
-const DataTable = () => {
+const DataTable: React.FC = () => {
   const dispatch = useAppDispatch()
   const [checkedItem, setCheckedItem] = React.useState<TypeActiveItem>({ idDocs: [], checkedDocs: [] })
   const [docs, setDocs] = React.useState<DocType[]>([])
