@@ -9,3 +9,8 @@ export interface DocType {
   currency: string
   total?: string
 }
+
+export interface TypeActiveItem {
+  idDocs: string[]
+  checkedDocs: DocType[]
+}
