@@ -23,11 +23,10 @@ const DataTable: React.FC = () => {
 
   React.useEffect(() => {
     if (dataTable != null) {
-      const data = dataTable.map((item) => ({
+      setDocs(dataTable.map((item) => ({
         ...item,
         total: `${item.qty + item.sum} ${item.currency}`
-      }))
-      setDocs(data)
+      })))
     }
   }, [dataTable])
 
